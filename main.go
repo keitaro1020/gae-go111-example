@@ -2,14 +2,21 @@ package main
 
 import (
 	"fmt"
+	"github.com/go-chi/chi"
+	"github.com/keitaro1020/gae-go111-example/handler"
 	"log"
 	"net/http"
 	"os"
-	"github.com/keitaro1020/gae-go111-example/handler"
 )
 
 func main() {
-	http.HandleFunc("/", handler.HelloHandler)
+
+	r := chi.NewRouter()
+
+	r.Get("/", handler.HelloHandler)
+	r.Route("/api", func(r chi.Router){
+
+	})
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -18,5 +25,5 @@ func main() {
 	}
 
 	log.Printf("Listening on port %s", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), r))
 }

@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 )
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
